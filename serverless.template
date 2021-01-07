@@ -5,11 +5,11 @@
 
 	"Resources" : {
 
-		"GetPalletFunction" : {
+		"GetGoFunction" : {
 			"Type" : "AWS::Serverless::Function",
 			"Properties": {
-				"Handler": "InventoryManager::InventoryManager.Lambdas.GetPalletFunction::GetPallet",
-				"Runtime": "dotnetcore2.1",
+				"Handler": "GoManager::GoManager.Lambdas.GetGoFunction::GetGo",
+				"Runtime": "dotnetcore3.1",
 				"CodeUri": "",
 				"MemorySize": 256,
 				"Timeout": 30,
@@ -19,18 +19,18 @@
 					"PutResource": {
 						"Type": "Api",
 						"Properties": {
-							"Path": "/GetPallet/{palletId}",
+							"Path": "/GetGo/{GoId}",
 							"Method": "GET"
 						}
 					}
 				}
 			}
 		},
-		"PlacePalletFunction" : {
+		"AddGoFunction" : {
 			"Type" : "AWS::Serverless::Function",
 			"Properties": {
-				"Handler": "InventoryManager::InventoryManager.Lambdas.PlacePalletFunction::PlacePallet",
-				"Runtime": "dotnetcore2.1",
+				"Handler": "GoManager::GoManager.Lambdas.AddGotFunction::AddGo",
+				"Runtime": "dotnetcore3.1",
 				"CodeUri": "",
 				"MemorySize": 256,
 				"Timeout": 30,
@@ -40,7 +40,7 @@
 					"PutResource": {
 						"Type": "Api",
 						"Properties": {
-							"Path": "/PlacePallet",
+							"Path": "/AddGo",
 							"Method": "POST"
 						}
 					}
@@ -54,8 +54,8 @@
 
 	"Outputs" : {
 		"ApiURL" : {
-			"Description" : "API endpoint URL for Prod environment",
-			"Value" : { "Fn::Sub" : "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/" }
+			"Description" : "API endpoint URL for Dev environment",
+			"Value" : { "Fn::Sub" : "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Dev/" }
 		}
 	}
 }
