@@ -1,12 +1,13 @@
 {
   "AWSTemplateFormatVersion" : "2010-09-09",
   "Description" : "Resources stack for InventoryManagerDemo",
+  
   "Resources" : {
     "ConfigBucket" : {
       "Type": "AWS::S3::Bucket",
       "Properties" : {
         "AccessControl" : "PublicRead",
-        "BucketName" : "inventory-manager-demo-bucket"
+        "BucketName" : "go-dev-bucket"
       }
     },
 	"InternetGateway" : {
@@ -85,8 +86,8 @@
 		"Type": "AWS::EC2::SecurityGroup",
 		"Properties": {
 			"VpcId" : { "Ref" : "VPC" },
-            "GroupName" : "InventoryManagerSecurityGroup",
-            "GroupDescription" : "Security group for inventory manager",
+            "GroupName" : "GoSecurityGroup",
+            "GroupDescription" : "Security group for Go manager",
 			"SecurityGroupEgress" : [{
 			  "IpProtocol" : "-1", 
 			  "CidrIp" : "0.0.0.0/0"
@@ -118,7 +119,7 @@
     "DatabaseInstanceSecret": {
       "Type": "AWS::SecretsManager::Secret",
       "Properties": {
-        "Description": "This is the secret for my RDS instance",
+        "Description": "Secret for Go RDS instance",
         "GenerateSecretString": {
           "SecretStringTemplate": "{\"username\":\"admin\"}",
           "GenerateStringKey": "password",
@@ -142,20 +143,20 @@
     }
   },
   "Outputs" : {
-	  "InventoryManagerFirstSubnet" : {
-		"Description" : "The Inventory Manager first subnet",
+	  "GoManagerFirstSubnet" : {
+		"Description" : "first subnet",
 		"Value" :  { "Ref" : "SubnetA" },
-		"Export" : { "Name" : "InventoryManagerFirstSubnet" }
+		"Export" : { "Name" : "GoFirstSubnet" }
 	  },
-	  "InventoryManagerSecondSubnet" : {
-		"Description" : "The Inventory Manager second subnet",
+	  "GoManagerSecondSubnet" : {
+		"Description" : "second subnet",
 		"Value" :  { "Ref" : "SubnetB" },
-		"Export" : { "Name" : "InventoryManagerSecondSubnet" }
+		"Export" : { "Name" : "GoSecondSubnet" }
 	  },
-	  "InventoryManagerSecurityGroup" : {
-		"Description" : "The Inventory Manager security group ",
+	  "GoSecurityGroup" : {
+		"Description" : "Go Manager security group ",
 		"Value" :  { "Ref" : "SecurityGroup" },
-		"Export" : { "Name" : "InventoryManagerSecurityGroup" }
+		"Export" : { "Name" : "GoManagerSecurityGroup" }
 	  }
   }
 }
